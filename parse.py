@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
-from typing import Any, Optional, Type, Union
+from typing import Any, Iterable, Optional, Type, Union
 from typing import Dict, List
 from typing import TypeVar
 
@@ -34,6 +34,20 @@ T = TypeVar("T")
 
 
 @dataclass
+class Rule:
+    name: str
+    expr: Expression
+
+
+@dataclass
+class Grammar(Iterable[Rule]):
+    rules: List[Rule]
+
+    def __iter__(self):
+        yield from self.rules
+
+
+@dataclass
 class Identifier:
     name: str
 
@@ -41,12 +55,6 @@ class Identifier:
 @dataclass
 class Terminal:
     string: str
-
-
-@dataclass
-class Rule:
-    name: str
-    expr: Expression
 
 
 @dataclass
@@ -255,7 +263,8 @@ def build_ast(stack: List[Union[OP, Identifier, Terminal]]):
             node_type: UnOpType = OP_NODES[element]
             node = node_type(expr)
             operand_stack.append(node)
-    return rules
+    grammar = Grammar(rules)
+    return grammar
 
 
 def parse(string: str):
