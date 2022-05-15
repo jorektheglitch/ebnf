@@ -74,18 +74,22 @@ class Concatenation(BinOp):
     right: Expression
 
 
-@dataclass
-class Group:
+class UnaryOp:
     expr: Expression
 
 
 @dataclass
-class EBNFOptional:
+class Group(UnaryOp):
     expr: Expression
 
 
 @dataclass
-class Repetition:
+class EBNFOptional(UnaryOp):
+    expr: Expression
+
+
+@dataclass
+class Repetition(UnaryOp):
     expr: Expression
 
 
