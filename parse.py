@@ -57,14 +57,18 @@ class Terminal:
     string: str
 
 
+class BinOp:
+    pass
+
+
 @dataclass
-class Alternation:
+class Alternation(BinOp):
     left: Expression
     right: Expression
 
 
 @dataclass
-class Concatenation:
+class Concatenation(BinOp):
     left: Expression
     right: Expression
 
