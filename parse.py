@@ -58,7 +58,8 @@ class Terminal:
 
 
 class BinOp:
-    pass
+    left: Expression
+    right: Expression
 
 
 @dataclass
